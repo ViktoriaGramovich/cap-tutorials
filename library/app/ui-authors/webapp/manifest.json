@@ -1,0 +1,180 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "authors.uiauthors",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.9.4",
+            "toolsId": "f67455b9-059a-4d7e-841c-69a326f8c001"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/catalog/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "authors-uiauthors-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Authors",
+                    "action": "manage",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.113.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "authors.uiauthors.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "AuthorsList",
+                    "target": "AuthorsList"
+                },
+                {
+                    "pattern": "Authors({key}):?query:",
+                    "name": "AuthorsObjectPage",
+                    "target": "AuthorsObjectPage"
+                },
+                {
+                    "pattern": "Authors({key})/books({key2}):?query:",
+                    "name": "BooksObjectPage",
+                    "target": "BooksObjectPage"
+                }
+            ],
+            "targets": {
+                "AuthorsList": {
+                    "type": "Component",
+                    "id": "AuthorsList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Authors",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "Authors": {
+                                    "detail": {
+                                        "route": "AuthorsObjectPage"
+                                    }
+                                }
+                            }
+                        },
+                        "initialLoad": "Enabled"
+                    }
+                },
+                "AuthorsObjectPage": {
+                    "type": "Component",
+                    "id": "AuthorsObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "Authors",
+                            "navigation": {
+                                "books": {
+                                    "detail": {
+                                        "route": "BooksObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "BooksObjectPage": {
+                    "type": "Component",
+                    "id": "BooksObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "Books"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "library"
+    }
+}
