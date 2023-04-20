@@ -1,0 +1,10 @@
+GET http://localhost:4004/catalog/Authors?$expand=books
+
+###
+GET http://localhost:4004/catalog/Books
+
+###
+POST http://localhost:4004/catalog/Authors
+Content-Type: application/json
+
+{"ID": 47, "name":"Vika"}

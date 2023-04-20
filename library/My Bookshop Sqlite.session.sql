@@ -1,0 +1,1 @@
+SELECT CO* FROM my_bookshop_Books
